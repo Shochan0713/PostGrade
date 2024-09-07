@@ -1,0 +1,62 @@
+@startuml
+package user {
+  ' ログイン/サインアップ画面 (Login/Signup Screen)
+  class Login {
+    - username: String
+    - password: String
+    + validateLogin(): Boolean
+  }
+
+  class Signup {
+    - email: String
+    - username: String
+    - password: String
+    + registerUser(): void
+  }
+
+  ' ユーザープロフィール画面 (User Profile Screen)
+  class UserProfile {
+    - userId: String
+    - userName: String
+    + updateProfile(): void
+    + fetchUserDetails(): void
+  }
+}
+
+package Post {
+  ' 投稿一覧画面 (Home Screen)
+  class Home {
+    + fetchPosts(): void
+    + displayPosts(): void
+  }
+
+  ' 投稿詳細画面 (Post Detail Screen)
+  class PostDetail {
+    - postId: String
+    + fetchPostDetails(): void
+    + displayPost(): void
+  }
+}
+
+package setting {
+  ' エラーメッセージ画面 (Error Screen)
+  class Error {
+    - errorMessage: String
+    + showError(): void
+  }
+
+  ' 設定画面 (Setting Screen)
+  class Setting {
+    + updateSettings(): void
+    + fetchSettings(): void
+  }
+}
+
+' 関連の追加
+Login -- Signup : registers
+Signup -- UserProfile : creates
+UserProfile -- Home : views
+Home -- PostDetail : views
+PostDetail -- Error : errorHandler
+Setting -- Error : handlesErrors
+@enduml

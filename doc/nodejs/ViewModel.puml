@@ -1,0 +1,27 @@
+@startuml
+package viewmodel {
+  ' 投稿のViewModel (PostViewModel)
+  class PostViewModel {
+    - postModel: Post
+    + fetchPosts(): Promise<void>
+    + createPost(content: String): Promise<void>
+    + updatePost(id: String, rating: String): Promise<void>
+    + getPost(id: String): Promise<Post>
+  }
+
+  ' ユーザーのViewModel (UserViewModel)
+  class UserViewModel {
+    - userModel: User
+    + fetchUser(userId: String): Promise<void>
+    + updateUser(user: User): Promise<void>
+  }
+
+  ' 設定のViewModel (SettingViewModel)
+  class SettingViewModel {
+    - settingModel: Setting
+    + fetchSettings(): Promise<void>
+    + updateSettings(settings: Setting): Promise<void>
+  }
+}
+
+@enduml

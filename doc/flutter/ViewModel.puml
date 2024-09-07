@@ -1,0 +1,27 @@
+@startuml
+package viewmodel {
+  ' 投稿のViewModel (PostViewModel)
+  class PostViewModel {
+    - posts: List<Post>
+    + fetchPosts(): void
+    + createPost(content: String): void
+    + updatePost(postId: String, rating: String): void
+    + getPost(postId: String): Post
+  }
+
+  ' ユーザーのViewModel (UserViewModel)
+  class UserViewModel {
+    - user: User
+    + fetchUser(userId: String): void
+    + updateUser(user: User): void
+  }
+
+  ' 設定のViewModel (SettingViewModel)
+  class SettingViewModel {
+    - settings: Setting
+    + fetchSettings(): void
+    + updateSettings(settings: Setting): void
+  }
+}
+
+@enduml

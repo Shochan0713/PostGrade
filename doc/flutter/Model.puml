@@ -1,0 +1,30 @@
+@startuml 
+package model {
+  ' 投稿データモデル (Post Model)
+  class Post {
+    - id: String
+    - content: String
+    - rating: String
+    + toJson(): Map<String, dynamic>
+    + fromJson(json: Map<String, dynamic>): Post
+  }
+
+  ' ユーザーデータモデル (User Model)
+  class User {
+    - userId: String
+    - userName: String
+    - email: String
+    + toJson(): Map<String, dynamic>
+    + fromJson(json: Map<String, dynamic>): User
+  }
+
+  ' 設定データモデル (Setting Model)
+  class Setting {
+    - theme: String
+    - notificationsEnabled: Boolean
+    + toJson(): Map<String, dynamic>
+    + fromJson(json: Map<String, dynamic>): Setting
+  }
+}
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+package model {
+  ' 投稿データモデル (Post Model)
+  class Post {
+    - id: String
+    - content: String
+    - rating: String
+    + save(): Promise<void>
+    + update(id: String, rating: String): Promise<void>
+    + fetch(id: String): Promise<Post>
+  }
+
+  ' ユーザーデータモデル (User Model)
+  class User {
+    - userId: String
+    - userName: String
+    - email: String
+    + save(): Promise<void>
+    + fetch(userId: String): Promise<User>
+  }
+
+  ' 設定データモデル (Setting Model)
+  class Setting {
+    - theme: String
+    - notificationsEnabled: Boolean
+    + save(): Promise<void>
+    + fetch(): Promise<Setting>
+  }
+}
+
+@enduml
