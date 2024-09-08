@@ -38,3 +38,4 @@ Thumbs.db
 
 # Exclude sensitive files
 PostGrade-backend/src/config/serviceAccountKey.json
+PostGrade/postgrade/android/app/google-services .json

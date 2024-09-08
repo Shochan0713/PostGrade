@@ -11,3 +11,7 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+
+# Exclude sensitive files
+PostGrade/postgrade/android/app/google-services .json
