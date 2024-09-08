@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/views/home_view.dart';
 import 'package:postgrade/views/login_view.dart';
@@ -13,7 +12,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: '/',
-              builder: (context, state) => HomePage(),
+              builder: (context, state) => const HomePage(),
             ),
             // pageBuilder: (context, state) => MaterialPage(
             //       key: state.pageKey,

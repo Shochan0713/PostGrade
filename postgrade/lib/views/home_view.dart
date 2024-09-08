@@ -1,5 +1,4 @@
 // lib/pages/home_page.dart
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,24 +20,24 @@ final postListProvider = FutureProvider<List<Post>>((ref) async {
     Post(id: '1', content: 'サンプル投稿 1', rating: 'A'),
     Post(id: '2', content: 'サンプル投稿 2', rating: 'B'),
     Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
+    Post(id: '3', content: 'サンプル投稿 3', rating: 'D'),
+    Post(id: '3', content: 'サンプル投稿 3', rating: 'E'),
+    Post(id: '3', content: 'サンプル投稿 3', rating: 'F'),
     Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
     Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
   ];
+  // ignore: avoid_print
   print('サンプルデータ: $samplePosts'); // コンソールにサンプルデータを出力
   return Future.delayed(
       const Duration(seconds: 1), () => samplePosts); // データ取得の遅延を模倣
 });
 
 class HomePage extends ConsumerWidget {
-  CustomAppBar _customAppBar = const CustomAppBar(
-    title: 'Home',
-  );
-  CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
+  final CustomAppBar _customAppBar = const CustomAppBar();
+  final CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
 
-  HomePage({super.key});
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final postList = ref.watch(postListProvider);
@@ -55,21 +54,38 @@ class HomePage extends ConsumerWidget {
                   (context, index) {
                     final post = samplePosts[index];
                     return Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 12.0),
                       elevation: 4.0,
                       child: ListTile(
-                        contentPadding: EdgeInsets.all(16.0),
-                        title: Text(
-                          post.content,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        subtitle: Text(
-                          'AI評価: ${post.rating}',
-                          style: const TextStyle(color: Colors.black),
+                        contentPadding: const EdgeInsets.all(16.0),
+                        title: Row(
+                          children: [
+                            Text(
+                              post.content,
+                              style: const TextStyle(color: Colors.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const Spacer(), // 左右にスペースを挿入してAI評価を右端に固定
+                            Column(children: [
+                              const Text(
+                                'AI評価',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              Text(
+                                '${post.rating}',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  color: _getRatingColor('${post.rating}'),
+                                ),
+                              ),
+                            ]), // 左右の要素間のスペース
+                          ],
                         ),
                         onTap: () {
-                          print("テキストクリック");
                           // 投稿詳細ページに遷移する
                           context.go('/post/${post.id}');
                         },
@@ -96,5 +112,24 @@ class HomePage extends ConsumerWidget {
       ),
       bottomNavigationBar: _bottomNavBar,
     );
+  }
+
+  Color _getRatingColor(String rating) {
+    switch (rating) {
+      case 'A':
+        return Colors.amber;
+      case 'B':
+        return Colors.red;
+      case 'C':
+        return Colors.orange;
+      case 'D':
+        return Colors.green;
+      case 'E':
+        return Colors.blue;
+      case 'F':
+        return Colors.indigo;
+      default:
+        return Colors.black;
+    }
   }
 }

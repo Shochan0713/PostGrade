@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "firestore"
-    ]
+        "autofocus",
+        "firestore",
+        "postgrade",
+        "riverpod",
+        "signup"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

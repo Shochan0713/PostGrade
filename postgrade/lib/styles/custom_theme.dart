@@ -6,14 +6,14 @@ class CustomTheme {
       primaryColor: Colors.teal,
       scaffoldBackgroundColor: Colors.white,
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: Colors.black),
+        bodyLarge: const TextStyle(color: Colors.black),
         bodyMedium: TextStyle(color: Colors.grey[600]),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.teal,
         titleTextStyle: TextStyle(color: Colors.white),
       ),
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Colors.teal,
         textTheme: ButtonTextTheme.primary,
       ),
@@ -25,14 +25,14 @@ class CustomTheme {
       primaryColor: Colors.grey[900],
       scaffoldBackgroundColor: Colors.white, // 背景色
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: Colors.white),
+        bodyLarge: const TextStyle(color: Colors.white),
         bodyMedium: TextStyle(color: Colors.grey[300]),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.grey[900],
-        titleTextStyle: TextStyle(color: Colors.white),
+        titleTextStyle: const TextStyle(color: Colors.white),
       ),
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Colors.blueGrey,
         textTheme: ButtonTextTheme.primary,
       ),

@@ -19,6 +19,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -37,9 +38,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           label: 'プロフィール',
         ),
       ],
-      selectedItemColor: Colors.blue, // 選択されたアイコンの色
-      unselectedItemColor: Colors.grey, // 未選択のアイコンの色
-      backgroundColor: Colors.white, // 背景色
+      selectedItemColor: Colors.black, // 選択されたアイコンの色
+      unselectedItemColor: Colors.grey[300], // 未選択のアイコンの色
+      backgroundColor: Colors.grey,
       currentIndex: _selectIndex,
       onTap: _onItemTapped,
     );
