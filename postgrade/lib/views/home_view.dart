@@ -33,7 +33,6 @@ final postListProvider = FutureProvider<List<Post>>((ref) async {
 });
 
 class HomePage extends ConsumerWidget {
-  final CustomAppBar _customAppBar = const CustomAppBar();
   final CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
 
   const HomePage({super.key});
@@ -44,7 +43,10 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: _customAppBar,
+      appBar: CustomAppBar(
+        showBackButton: false,
+        context: context,
+      ),
       body: postList.when(
         data: (samplePosts) {
           return CustomScrollView(
@@ -86,8 +88,8 @@ class HomePage extends ConsumerWidget {
                           ],
                         ),
                         onTap: () {
-                          // 投稿詳細ページに遷移する
-                          context.go('/post/${post.id}');
+                          context.go('/postdetail',
+                              extra: post); // post.idをURLパラメータとして渡す
                         },
                       ),
                     );

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final bool showBackButton;
+  final BuildContext context;
+
+  const CustomAppBar(
+      {super.key, required this.showBackButton, required this.context});
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -17,6 +21,29 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: widget.showBackButton && !isSearching
+          ? BackButton(
+              color: Colors.white,
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context); // ナビゲーションスタックから戻る
+                } else {
+                  // スタックに戻るページがない場合の処理
+                  print("スタックに戻るページがありません");
+                }
+              },
+            )
+          : isSearching
+              ? IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                      _searchController.clear(); // 検索バーを閉じた時にテキストをクリア
+                    });
+                  },
+                )
+              : null,
       title: isSearching
           ? TextField(
               controller: _searchController,
@@ -43,17 +70,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             ),
       backgroundColor: Colors.grey,
-      leading: isSearching
-          ? IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                setState(() {
-                  isSearching = false;
-                  _searchController.clear(); // 検索バーを閉じた時にテキストをクリア
-                });
-              },
-            )
-          : null,
       actions: [
         IconButton(
           onPressed: () {
