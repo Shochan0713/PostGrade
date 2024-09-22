@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:postgrade/models/comment.dart';
 import 'package:postgrade/models/post.dart';
 import 'package:postgrade/providers/comment_list_provider.dart';
 import 'package:postgrade/styles/comment_card.dart';

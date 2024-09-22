@@ -7,7 +7,8 @@ import 'package:postgrade/views/notifications_view.dart';
 import 'package:postgrade/views/post_detail_view.dart';
 import 'package:postgrade/views/search_view.dart';
 import 'package:postgrade/views/setting_view.dart';
-import 'package:postgrade/views/signup_view.dart'; // 新規投稿ページ
+import 'package:postgrade/views/signup_view.dart';
+import 'package:postgrade/views/user_profile_view.dart'; // 新規投稿ページ
 
 class AppRouter {
   final GoRouter router;
@@ -56,7 +57,7 @@ class AppRouter {
             ),
             GoRoute(
               path: '/profile',
-              builder: (context, state) => const SettingPage(),
+              builder: (context, state) => ProfilePage(),
             ),
           ],
         );

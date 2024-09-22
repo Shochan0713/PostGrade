@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/services/providers.dart';
@@ -17,34 +18,30 @@ class CustomBottomNavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(selectedIndexProvider);
 
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'ホーム',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: '検索',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications),
-          label: '通知',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          label: 'プロフィール',
-        ),
+    return CurvedNavigationBar(
+      items: const <Widget>[
+        Icon(Icons.home, size: 30),
+        Icon(Icons.search, size: 30),
+        Icon(Icons.add, size: 30), // 追加ボタン
+        Icon(Icons.notifications, size: 30),
+        Icon(Icons.account_circle, size: 30),
       ],
-      currentIndex: selectedIndex,
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Colors.grey[300],
-      backgroundColor: Colors.grey,
       onTap: (index) {
+        if (index == 2) {
+          // Handle the add button action here
+          print('Add button pressed');
+          return; // Do nothing for the add button
+        }
         ref.read(selectedIndexProvider.notifier).state = index;
-        context.go(_routes[index]);
+        context.go(_routes[
+            index > 2 ? index - 1 : index]); // Adjust for the add button
       },
+      backgroundColor: Colors.white,
+      buttonBackgroundColor: Colors.blue,
+      color: Colors.grey,
+      height: 60,
+      animationCurve: Curves.easeInOut,
+      animationDuration: const Duration(milliseconds: 300),
     );
   }
 }
