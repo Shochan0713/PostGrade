@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showBackButton;
@@ -26,9 +27,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
               color: Colors.white,
               onPressed: () {
                 if (Navigator.canPop(context)) {
-                  Navigator.pop(context); // ナビゲーションスタックから戻る
+                  Navigator.pop(context); // Navigatorで戻る
                 } else {
-                  // スタックに戻るページがない場合の処理
                   print("スタックに戻るページがありません");
                 }
               },
@@ -39,7 +39,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   onPressed: () {
                     setState(() {
                       isSearching = false;
-                      _searchController.clear(); // 検索バーを閉じた時にテキストをクリア
+                      _searchController.clear();
                     });
                   },
                 )

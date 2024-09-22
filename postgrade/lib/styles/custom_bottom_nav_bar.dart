@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:postgrade/services/providers.dart';
 
-class CustomBottomNavBar extends StatefulWidget {
+class CustomBottomNavBar extends ConsumerWidget {
   const CustomBottomNavBar({super.key});
 
-  @override
-  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
-}
-
-class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int _selectIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectIndex = index;
-    });
-  }
+  static const List<String> _routes = [
+    '/', // ホーム画面
+    '/search', // 検索画面
+    '/notifications', // 通知画面
+    '/profile', // プロフィール画面
+  ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(selectedIndexProvider);
+
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: const [
@@ -38,11 +37,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           label: 'プロフィール',
         ),
       ],
-      selectedItemColor: Colors.black, // 選択されたアイコンの色
-      unselectedItemColor: Colors.grey[300], // 未選択のアイコンの色
+      currentIndex: selectedIndex,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey[300],
       backgroundColor: Colors.grey,
-      currentIndex: _selectIndex,
-      onTap: _onItemTapped,
+      onTap: (index) {
+        ref.read(selectedIndexProvider.notifier).state = index;
+        context.go(_routes[index]);
+      },
     );
   }
 }

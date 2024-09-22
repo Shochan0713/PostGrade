@@ -88,8 +88,9 @@ class HomePage extends ConsumerWidget {
                           ],
                         ),
                         onTap: () {
+                          print('ボタンがタップされました。');
                           context.go('/postdetail',
-                              extra: post); // post.idをURLパラメータとして渡す
+                              extra: post); // 修正: context.goを使用
                         },
                       ),
                     );
