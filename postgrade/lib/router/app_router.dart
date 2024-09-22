@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/models/post.dart';
+import 'package:postgrade/views/base_view.dart';
 import 'package:postgrade/views/home_view.dart';
 import 'package:postgrade/views/login_view.dart';
 import 'package:postgrade/views/notifications_view.dart';
@@ -18,7 +19,8 @@ class AppRouter {
           routes: [
             GoRoute(
               path: '/',
-              builder: (context, state) => const HomePage(),
+              // builder: (context, state) => const HomePage(),
+              builder: (context, state) => BasePage(),
             ),
             GoRoute(
               path: '/postdetail',
@@ -35,22 +37,16 @@ class AppRouter {
                 return PostDetailPage(post: post);
               },
             ),
-            GoRoute(
-              path: '/login',
-              builder: (context, state) => const LoginPage(),
-            ),
+            GoRoute(path: '/login', builder: (context, state) => LoginPage()),
             GoRoute(
               path: '/signup',
-              builder: (context, state) => const SignUpPage(),
+              builder: (context, state) => SignUpPage(),
             ),
             GoRoute(
               path: '/setting',
-              builder: (context, state) => const SettingPage(),
+              builder: (context, state) => SettingPage(),
             ),
-            GoRoute(
-              path: '/search',
-              builder: (context, state) => const SearchPage(),
-            ),
+            GoRoute(path: '/search', builder: (context, state) => SearchPage()),
             GoRoute(
               path: '/notifications',
               builder: (context, state) => NotificationPage(),

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/models/post.dart';
-import 'package:postgrade/styles/custom_app_bar.dart';
-import 'package:postgrade/styles/custom_bottom_nav_bar.dart';
+import 'package:postgrade/services/providers.dart';
 
 // final postListProvider = FutureProvider<List<Post>>((ref) async {
 //   QuerySnapshot querySnapshot =
@@ -33,8 +32,6 @@ final postListProvider = FutureProvider<List<Post>>((ref) async {
 });
 
 class HomePage extends ConsumerWidget {
-  final CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
-
   const HomePage({super.key});
 
   @override
@@ -43,10 +40,10 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: CustomAppBar(
-        showBackButton: false,
-        context: context,
-      ),
+      // appBar: CustomAppBar(
+      //   showBackButton: false,
+      //   context: context,
+      // ),
       body: postList.when(
         data: (samplePosts) {
           return CustomScrollView(
@@ -89,8 +86,10 @@ class HomePage extends ConsumerWidget {
                         ),
                         onTap: () {
                           print('ボタンがタップされました。');
-                          context.go('/postdetail',
-                              extra: post); // 修正: context.goを使用
+                          ref.read(selectedPostProvider.notifier).state =
+                              post; // 選択されたポストを保存
+                          ref.read(selectedIndexProvider.notifier).state =
+                              5; // PostDetailPage を表示
                         },
                       ),
                     );
@@ -113,7 +112,7 @@ class HomePage extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: _bottomNavBar,
+      // bottomNavigationBar: _bottomNavBar,
     );
   }
 

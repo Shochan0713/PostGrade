@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:postgrade/styles/custom_app_bar.dart';
-import 'package:postgrade/styles/custom_bottom_nav_bar.dart';
 
 class ProfilePage extends StatelessWidget {
   final String userName;
@@ -15,15 +13,14 @@ class ProfilePage extends StatelessWidget {
         'https://via.placeholder.com/150', // Placeholder image
   });
 
-  final CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        showBackButton: true,
-        context: context,
-      ),
+      // appBar: CustomAppBar(
+      //   showBackButton: true,
+      //   context: context,
+      // ),
+      // return Center(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -61,7 +58,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: _bottomNavBar,
+      // bottomNavigationBar: _bottomNavBar,
     );
   }
 }

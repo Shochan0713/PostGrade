@@ -1,47 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:postgrade/services/providers.dart';
 
-class CustomBottomNavBar extends ConsumerWidget {
-  const CustomBottomNavBar({super.key});
-
-  static const List<String> _routes = [
-    '/', // ホーム画面
-    '/search', // 検索画面
-    '/notifications', // 通知画面
-    '/profile', // プロフィール画面
+class CustomBottomNavBar {
+  final items = const [
+    Icon(
+      Icons.home,
+      size: 30,
+      color: Colors.white,
+    ),
+    Icon(
+      Icons.search,
+      size: 30,
+      color: Colors.white,
+    ),
+    Icon(
+      Icons.add,
+      size: 30,
+      color: Colors.white,
+    ), // 追加ボタン
+    Icon(
+      Icons.notifications,
+      size: 30,
+      color: Colors.white,
+    ),
+    Icon(
+      Icons.account_circle,
+      size: 30,
+      color: Colors.white,
+    ),
   ];
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(selectedIndexProvider);
+  Color color = Colors.grey;
+  Color backgroundColor = Colors.white;
+  Color? buttonBackgroundColor = Colors.grey[400];
+  double height = 60;
+  Duration animationDuration = const Duration(milliseconds: 300);
 
-    return CurvedNavigationBar(
-      items: const <Widget>[
-        Icon(Icons.home, size: 30),
-        Icon(Icons.search, size: 30),
-        Icon(Icons.add, size: 30), // 追加ボタン
-        Icon(Icons.notifications, size: 30),
-        Icon(Icons.account_circle, size: 30),
-      ],
-      onTap: (index) {
-        if (index == 2) {
-          // Handle the add button action here
-          print('Add button pressed');
-          return; // Do nothing for the add button
-        }
-        ref.read(selectedIndexProvider.notifier).state = index;
-        context.go(_routes[
-            index > 2 ? index - 1 : index]); // Adjust for the add button
-      },
-      backgroundColor: Colors.white,
-      buttonBackgroundColor: Colors.blue,
-      color: Colors.grey,
-      height: 60,
-      animationCurve: Curves.easeInOut,
-      animationDuration: const Duration(milliseconds: 300),
-    );
+  List<Icon> getItem(int index) {
+    print("選択中のインデックス: $index");
+    Color itemsColorWhite = Colors.white;
+    Color itemsGrey = Colors.black;
+
+    final items = [
+      Icon(
+        Icons.home,
+        size: 30,
+        color: index == 0 ? itemsColorWhite : itemsGrey,
+      ),
+      Icon(
+        Icons.search,
+        size: 30,
+        color: index == 1 ? itemsColorWhite : itemsGrey,
+      ),
+      Icon(
+        Icons.add,
+        size: 30,
+        color: index == 2 ? itemsColorWhite : itemsGrey,
+      ), // 追加ボタン
+      Icon(
+        Icons.notifications,
+        size: 30,
+        color: index == 3 ? itemsColorWhite : itemsGrey,
+      ),
+      Icon(
+        Icons.account_circle,
+        size: 30,
+        color: index == 4 ? itemsColorWhite : itemsGrey,
+      ),
+    ];
+
+    return items;
   }
 }

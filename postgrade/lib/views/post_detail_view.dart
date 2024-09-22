@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:postgrade/models/post.dart';
 import 'package:postgrade/providers/comment_list_provider.dart';
 import 'package:postgrade/styles/comment_card.dart';
-import 'package:postgrade/styles/custom_app_bar.dart';
-import 'package:postgrade/styles/custom_bottom_nav_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ソート順を管理するプロバイダー
@@ -16,9 +14,7 @@ final sortOrderProvider =
 enum SortOrder { highToLow, lowToHigh }
 
 class PostDetailPage extends ConsumerWidget {
-  final Post post;
-
-  final CustomBottomNavBar _bottomNavBar = const CustomBottomNavBar();
+  final Post? post;
 
   const PostDetailPage({super.key, required this.post});
 
@@ -38,19 +34,19 @@ class PostDetailPage extends ConsumerWidget {
     final sortOrder = ref.watch(sortOrderProvider);
     print('投稿詳細画面表示');
     return Scaffold(
-      appBar: CustomAppBar(showBackButton: true, context: context),
+      // appBar: CustomAppBar(showBackButton: true, context: context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              post.content,
+              post?.content ?? 'コンテンツが読み込まれませんでした',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              'AI評価: ${post.rating}',
+              'AI評価: ${post?.rating ?? 'N/A'}',
               style: TextStyle(color: Colors.grey[600], fontSize: 16),
             ),
             const SizedBox(height: 16),
@@ -167,7 +163,7 @@ class PostDetailPage extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: _bottomNavBar,
+      // bottomNavigationBar: _bottomNavBar,
     );
   }
 }
