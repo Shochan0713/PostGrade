@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:postgrade/models/post.dart';
 import 'package:postgrade/services/providers.dart';
 import 'package:postgrade/styles/custom_app_bar.dart';
 import 'package:postgrade/styles/custom_bottom_nav_bar.dart';
@@ -56,7 +55,7 @@ class BasePage extends ConsumerWidget {
         widget = const SearchPage();
         break;
       case 2:
-        widget = const HomePage();
+        widget = HomePage();
         break;
       case 3:
         widget = NotificationPage();

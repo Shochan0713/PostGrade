@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/models/post.dart';
 import 'package:postgrade/views/base_view.dart';
-import 'package:postgrade/views/home_view.dart';
 import 'package:postgrade/views/login_view.dart';
 import 'package:postgrade/views/notifications_view.dart';
 import 'package:postgrade/views/post_detail_view.dart';
@@ -16,20 +16,36 @@ class AppRouter {
 
   AppRouter()
       : router = GoRouter(
+          initialLocation: '/',
+          redirect: (BuildContext context, GoRouterState state) {
+            final user = FirebaseAuth.instance.currentUser;
+            final isLoggingIn = state.uri.toString() == '/login';
+
+            // ユーザーがログインしていない場合、ログインページへリダイレクト
+            if (user == null && !isLoggingIn) {
+              print("ログインページ画面へ");
+              // ログインページ画面
+              return '/login';
+            }
+
+            // ログイン済みでログインページにいる場合はホームにリダイレクト
+            if (user != null && isLoggingIn) {
+              // HomePage
+              return '/';
+            }
+
+            return null; // 他の場所にはリダイレクトしない
+          },
           routes: [
             GoRoute(
               path: '/',
-              // builder: (context, state) => const HomePage(),
-              builder: (context, state) => BasePage(),
+              builder: (context, state) => BasePage(), // ログイン後の画面
             ),
             GoRoute(
               path: '/postdetail',
               builder: (context, state) {
                 final post = state.extra as Post?;
                 if (post == null) {
-                  // ignore: avoid_print
-                  print('Scaffold実行');
-                  // エラーハンドリング
                   return const Scaffold(
                     body: Center(child: Text('Post not found')),
                   );
@@ -37,23 +53,29 @@ class AppRouter {
                 return PostDetailPage(post: post);
               },
             ),
-            GoRoute(path: '/login', builder: (context, state) => LoginPage()),
+            GoRoute(
+              path: '/login',
+              builder: (context, state) => LoginPage(), // ログインページ
+            ),
             GoRoute(
               path: '/signup',
-              builder: (context, state) => SignUpPage(),
+              builder: (context, state) => SignUpPage(), // サインアップページ
             ),
             GoRoute(
               path: '/setting',
-              builder: (context, state) => SettingPage(),
+              builder: (context, state) => SettingPage(), // 設定ページ
             ),
-            GoRoute(path: '/search', builder: (context, state) => SearchPage()),
+            GoRoute(
+              path: '/search',
+              builder: (context, state) => SearchPage(), // 検索ページ
+            ),
             GoRoute(
               path: '/notifications',
-              builder: (context, state) => NotificationPage(),
+              builder: (context, state) => NotificationPage(), // 通知ページ
             ),
             GoRoute(
               path: '/profile',
-              builder: (context, state) => ProfilePage(),
+              builder: (context, state) => ProfilePage(), // プロフィールページ
             ),
           ],
         );

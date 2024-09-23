@@ -22,6 +22,7 @@ class PostGrade extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Main処理");
     return MaterialApp.router(
       title: 'PostGrade',
       theme: CustomTheme.lightTheme, // カスタムテーマを設定
