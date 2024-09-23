@@ -10,6 +10,7 @@ import 'package:postgrade/views/post_detail_view.dart';
 import 'package:postgrade/views/search_view.dart';
 import 'package:postgrade/views/user_profile_view.dart';
 
+// ignore: must_be_immutable
 class BasePage extends ConsumerWidget {
   BasePage({
     super.key,
@@ -23,7 +24,7 @@ class BasePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         showBackButton: true,
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -55,7 +56,7 @@ class BasePage extends ConsumerWidget {
         widget = const SearchPage();
         break;
       case 2:
-        widget = HomePage();
+        widget = const HomePage();
         break;
       case 3:
         widget = NotificationPage();
@@ -68,7 +69,7 @@ class BasePage extends ConsumerWidget {
         if (post != null) {
           widget = PostDetailPage(post: post);
         } else {
-          widget = Center(child: Text("ポストが見つかりませんでした。"));
+          widget = const Center(child: Text("ポストが見つかりませんでした。"));
         }
         break;
       default:

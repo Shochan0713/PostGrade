@@ -9,6 +9,8 @@ final postContentProvider = StateProvider<String>((ref) => '');
 
 // Post Screen
 class PostPage extends ConsumerWidget {
+  const PostPage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final title = ref.watch(postTitleProvider);

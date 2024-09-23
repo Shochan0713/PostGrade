@@ -53,62 +53,72 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(Icons.lock_outline, size: 80, color: Colors.blueGrey[600]),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 'ログイン',
                 style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 248, 248, 248),
-                ),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               _buildTextField(
                 controller: _emailController,
                 hintText: 'メールアドレス',
                 icon: Icons.email_outlined,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildTextField(
                 controller: _passwordController,
                 hintText: 'パスワード',
                 icon: Icons.lock_outline,
                 obscureText: true,
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               if (_errorMessage != null)
                 Text(
                   _errorMessage!,
-                  style: TextStyle(color: Colors.red),
+                  style: const TextStyle(color: Colors.red),
                 ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: _loginWithEmailAndPassword,
                       style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 80, vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'ログイン',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.grey,
                         ),
                       ),
                     ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
                   // パスワードを忘れた場合の処理
                 },
                 child: Text(
                   'パスワードを忘れた？',
+                  style: TextStyle(color: Colors.blueGrey[600]),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  print("サインアップ");
+                  GoRouter.of(context).go('/signup');
+                },
+                child: Text(
+                  'アカウントは持っていない？',
                   style: TextStyle(color: Colors.blueGrey[600]),
                 ),
               ),
@@ -137,18 +147,9 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
       ),
-    );
-  }
-}
-
-// 仮のホームページ
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('ホームページ')),
     );
   }
 }

@@ -20,17 +20,15 @@ class AppRouter {
           redirect: (BuildContext context, GoRouterState state) {
             final user = FirebaseAuth.instance.currentUser;
             final isLoggingIn = state.uri.toString() == '/login';
+            final isSigningUp = state.uri.toString() == '/signup';
 
-            // ユーザーがログインしていない場合、ログインページへリダイレクト
-            if (user == null && !isLoggingIn) {
-              print("ログインページ画面へ");
-              // ログインページ画面
+            // ユーザーがログインしていない場合、ログインまたはサインアップページへリダイレクト
+            if (user == null && !isLoggingIn && !isSigningUp) {
               return '/login';
             }
 
             // ログイン済みでログインページにいる場合はホームにリダイレクト
-            if (user != null && isLoggingIn) {
-              // HomePage
+            if (user != null && (isLoggingIn || isSigningUp)) {
               return '/';
             }
 
