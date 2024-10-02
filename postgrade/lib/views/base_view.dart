@@ -1,11 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore: unused_import
+import 'package:postgrade/models/user.dart';
 import 'package:postgrade/services/providers.dart';
 import 'package:postgrade/styles/custom_app_bar.dart';
 import 'package:postgrade/styles/custom_bottom_nav_bar.dart';
 import 'package:postgrade/views/home_view.dart';
 import 'package:postgrade/views/notifications_view.dart';
+import 'package:postgrade/views/post.dart';
 import 'package:postgrade/views/post_detail_view.dart';
 import 'package:postgrade/views/search_view.dart';
 import 'package:postgrade/views/user_profile_view.dart';
@@ -48,6 +51,10 @@ class BasePage extends ConsumerWidget {
 
   Widget getSelectWidget({required int index, required WidgetRef ref}) {
     Widget widget;
+
+    // final firebase.User? user = firebase.FirebaseAuth.instance.currentUser;
+    // final String userId = user?.uid ?? '';
+
     switch (index) {
       case 0:
         widget = const HomePage();
@@ -56,13 +63,13 @@ class BasePage extends ConsumerWidget {
         widget = const SearchPage();
         break;
       case 2:
-        widget = const HomePage();
+        widget = const PostPage();
         break;
       case 3:
         widget = NotificationPage();
         break;
       case 4:
-        widget = const ProfilePage();
+        widget = ProfilePage();
         break;
       case 5:
         final post = ref.watch(selectedPostProvider);

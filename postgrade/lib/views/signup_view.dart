@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -36,7 +38,15 @@ class _SignUpPageState extends State<SignUpPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
       if (userCredential.user != null) {
+        // Firestoreにユーザー情報を保存
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'userName': 'Default User', // ユーザー名を適宜設定
+          'email': _emailController.text.trim(),
+          'profileImageUrl': 'https://via.placeholder.com/150', // デフォルト画像
+        });
+
         GoRouter.of(context).replace('/');
       }
     } on FirebaseAuthException catch (e) {

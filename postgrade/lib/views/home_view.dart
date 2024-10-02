@@ -15,14 +15,62 @@ import 'package:postgrade/services/providers.dart';
 final postListProvider = FutureProvider<List<Post>>((ref) async {
   // サンプルデータのリストを作成
   List<Post> samplePosts = [
-    Post(id: '1', content: 'サンプル投稿 1', rating: 'A'),
-    Post(id: '2', content: 'サンプル投稿 2', rating: 'B'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'D'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'E'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'F'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
-    Post(id: '3', content: 'サンプル投稿 3', rating: 'C'),
+    Post(
+      id: '1',
+      content: 'サンプル投稿 1',
+      rating: 'A',
+      timestamp: DateTime.now(),
+      userId: '00001',
+    ),
+    Post(
+      id: '2',
+      content: 'サンプル投稿 2',
+      rating: 'B',
+      timestamp: DateTime.now(),
+      userId: '00002',
+    ),
+    Post(
+      id: '3',
+      content: 'サンプル投稿 3',
+      rating: 'C',
+      timestamp: DateTime.now(),
+      userId: '00003',
+    ),
+    Post(
+      id: '4',
+      content: 'サンプル投稿 4',
+      rating: 'D',
+      timestamp: DateTime.now(),
+      userId: '00004',
+    ),
+    Post(
+      id: '5',
+      content: 'サンプル投稿 5',
+      rating: 'E',
+      timestamp: DateTime.now(),
+      userId: '00005',
+    ),
+    Post(
+      id: '6',
+      content: 'サンプル投稿 6',
+      rating: 'F',
+      timestamp: DateTime.now(),
+      userId: '00006',
+    ),
+    Post(
+      id: '7',
+      content: 'サンプル投稿 7',
+      rating: 'C',
+      timestamp: DateTime.now(),
+      userId: '00007',
+    ),
+    Post(
+      id: '8',
+      content: 'サンプル投稿 8',
+      rating: 'C',
+      timestamp: DateTime.now(),
+      userId: '00008',
+    ),
   ];
   // ignore: avoid_print
   print('サンプルデータ: $samplePosts'); // コンソールにサンプルデータを出力
@@ -39,10 +87,6 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      // appBar: CustomAppBar(
-      //   showBackButton: false,
-      //   context: context,
-      // ),
       body: postList.when(
         data: (samplePosts) {
           return CustomScrollView(

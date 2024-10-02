@@ -73,7 +73,12 @@ class AppRouter {
             ),
             GoRoute(
               path: '/profile',
-              builder: (context, state) => ProfilePage(), // プロフィールページ
+              builder: (context, state) {
+                // final User? user = FirebaseAuth.instance.currentUser;
+                // final String userId =
+                //     user?.uid ?? ''; // FirebaseAuthからuserIdを取得
+                return ProfilePage(); // userIdをProfilePageに渡す
+              },
             ),
           ],
         );
