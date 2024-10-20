@@ -15,20 +15,51 @@ final postContentProvider = StateProvider<String>((ref) => '');
 
 // FireStoreService
 final firestoreServiceProvider = Provider((ref) => FirestoreService());
-Future<String> getRatingFromNode(String content) async {
-  final url = Uri.parse('http://localhost:3000/ratePost'); // Node.jsサーバーのURL
-  final response = await http.post(
-    Uri.parse('http://localhost:3000/ratePost'),
-    body: jsonEncode({'content': content}),
-    headers: {'Content-Type': 'application/json'},
-  );
-  // TODO: 登録する当たりに、バックエンドが動いていない？？
+Future<String> getRatingFromNodeChatAPI(String content) async {
+  final url =
+      Uri.parse('http://192.168.1.32:3000/ratePost'); // localhostの代わりにPCのIPアドレス
+  try {
+    final response = await http.post(
+      url,
+      body: jsonEncode({'content': content}),
+      headers: {'Content-Type': 'application/json'},
+    );
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    return data['rating'];
-  } else {
-    throw Exception('Failed to get rating from Node.js server');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['rating'];
+    } else {
+      throw Exception('Failed to get rating from Node.js server');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw Exception('Failed to connect to Node.js server');
+  }
+}
+
+Future<String> getRatingFromNode(String content) async {
+  print("getRatingFromNodeを実行");
+  final url =
+      Uri.parse('http://192.168.1.32:3000/ratePost'); // localhostの代わりにPCのIPアドレス
+  try {
+    final response = await http.post(
+      url,
+      body: jsonEncode({'content': content}),
+      headers: {'Content-Type': 'application/json'},
+    );
+    print("response post");
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['rating']; // ここで評価'A'が返される
+    } else {
+      print('Error response: ${response.body}'); // ここでレスポンスボディを出力
+      throw Exception('Failed to save post on Node.js server');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw Exception('Failed to connect to Node.js server');
+  } finally {
+    print('投稿終了');
   }
 }
 
@@ -73,6 +104,7 @@ class PostPage extends ConsumerWidget {
                     );
 
                     // Firestoreに投稿を保存
+                    print("firestoreService.addPost(newPost)でFirebaseに登録");
                     await firestoreService.addPost(newPost);
 
                     // 投稿成功のメッセージを表示

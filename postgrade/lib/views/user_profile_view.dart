@@ -43,7 +43,19 @@ class ProfilePage extends StatelessWidget {
           }
 
           if (!snapshot.hasData || snapshot.data == null) {
-            return const Center(child: Text('ユーザーデータが見つかりません'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(child: Text('ユーザーデータが見つかりません')),
+                TextButton(
+                  onPressed: () {
+                    _logout(context);
+                    GoRouter.of(context).replace('/login');
+                  },
+                  child: Text('ログイン画面へ'),
+                ),
+              ],
+            );
           }
 
           // Firestoreから取得したユーザー情報

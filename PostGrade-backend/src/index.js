@@ -10,6 +10,7 @@ app.post('/analyze', async (req, res) => {
     console.log('Received request:', req.body); // リクエスト内容をログに出力
     const { content } = req.body;
     try {
+      console.log('Received request:アナライズ実施');
       const docRef = db.collection('posts').doc();
       await docRef.set({
         content: content,
@@ -26,6 +27,7 @@ app.get('/posts', async (req, res) => {
     try {
       const snapshot = await db.collection('posts').get();
       const posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      console.log('DBに登録');
       res.json(posts);
     } catch (err) {
       res.status(500).json({ error: err.message });
