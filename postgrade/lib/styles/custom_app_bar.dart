@@ -20,11 +20,9 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
               onPressed: () {
                 // GoRouterを使用して戻る
                 if (ref.read(selectedIndexProvider.notifier).state == 0) {
-                  print("A");
                   // 最初のページに戻る処理
                   context.go('/'); // 適切なルートに変更
                 } else {
-                  print("B");
                   ref.read(selectedIndexProvider.notifier).state =
                       ref.watch(currentIndexProvider.notifier).state;
                 }

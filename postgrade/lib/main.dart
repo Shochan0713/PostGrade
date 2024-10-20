@@ -7,27 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:postgrade/router/app_router.dart';
 
-// void startNodeJsServer() async {
-//   try {
-//     // pm2でNode.jsサーバーを起動するコマンド
-//     ProcessResult result = await Process.run(
-//       'C:\\Users\\user\\AppData\\Roaming\\npm\\pm2.cmd',
-//       ['start', 'server.js', '--name', 'postgrade-server'],
-//       runInShell: true,
-//       workingDirectory:
-//           'C:\\Users\\user\\Desktop\\Work\\PostGrade\\PostGrade\\PostGrade-backend\\server.js', // Node.jsのアプリが存在するディレクトリ
-//     );
-
-//     if (result.exitCode == 0) {
-//       print('Server started successfully: ${result.stdout}');
-//     } else {
-//       print('Failed to start server: ${result.stderr}');
-//     }
-//   } catch (e) {
-//     print('Error starting Node.js server: $e');
-//   }
-// }
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -45,7 +24,7 @@ class PostGrade extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Main処理");
+    debugPrint("Main処理");
     return MaterialApp.router(
       title: 'PostGrade',
       theme: CustomTheme.lightTheme, // カスタムテーマを設定

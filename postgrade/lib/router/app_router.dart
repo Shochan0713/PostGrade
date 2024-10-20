@@ -61,7 +61,16 @@ class AppRouter {
             ),
             GoRoute(
               path: '/setting',
-              builder: (context, state) => SettingPage(), // 設定ページ
+              builder: (context, state) {
+                final userId =
+                    FirebaseAuth.instance.currentUser?.uid; // 現在のユーザーIDを取得
+                if (userId == null) {
+                  return const Scaffold(
+                    body: Center(child: Text('ログインしていないため設定ページにアクセスできません')),
+                  );
+                }
+                return SettingPage(userId: userId); // userIdをSettingPageに渡す
+              },
             ),
             GoRoute(
               path: '/search',

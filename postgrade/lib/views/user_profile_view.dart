@@ -93,9 +93,9 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      // プロフィール編集やログアウト機能の実装
+                      GoRouter.of(context).go('/setting'); // 設定画面に遷移
                     },
-                    child: const Text('Edit Profile'),
+                    child: const Text('プロフィール設定へ'),
                   ),
                 ],
               ),
